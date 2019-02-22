@@ -1,23 +1,34 @@
 {
-  "name": "airplane",
+  "name": "EmojiFight",
   "version": "1.0.0",
-  "description": "game",
+  "description": "消灭表情包",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "webpack --watch --progress --color"
   },
-  "author": "paysontsung",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/weeeek/EmojiFight.git"
+  },
+  "keywords": [],
+  "author": "Weeeek",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/weeeek/EmojiFight/issues"
+  },
+  "homepage": "https://github.com/weeeek/EmojiFight#readme",
   "devDependencies": {
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
     "babel-preset-es2015": "^6.24.0",
-    "css-loader": "^0.26.1",
+    "css-loader": "^0.26.4",
     "extract-text-webpack-plugin": "^2.1.0",
     "less": "^2.7.2",
     "less-loader": "^2.2.3",
-    "style-loader": "^0.13.1",
-    "webpack": "^3.6.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.13.2",
+    "webpack": "^3.12.0",
     "webpack-dev-server": "^2.11.3"
   },
   "dependencies": {
