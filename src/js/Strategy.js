@@ -39,8 +39,8 @@ let playerBulletStrategy = {
   'Lv.5': function(player, bulletSpeed, bulletArr){
     let newLeftBullet = PlayerBullet.getBullet(player.x + player.width/2 - 38, player.y + 20, -bulletSpeed/3, -bulletSpeed,  'strength', 1);
     let newMidLeftBullet = PlayerBullet.getBullet(player.x + player.width/2 - 20, player.y, -bulletSpeed/4, -bulletSpeed,  'normal', 1);    
-    let newSuperLeftBullet = PlayerBullet.getBullet(player.x + player.width/2 - 20, player.y, 0, -bulletSpeed,  'super', 1);
-    let newSuperRightBullet = PlayerBullet.getBullet(player.x + player.width/2 + 14, player.y, 0, -bulletSpeed,  'super', 1);
+    let newSuperLeftBullet = PlayerBullet.getBullet(player.x + player.width/2 - 6, player.y, 0, -bulletSpeed,  'super', 1);
+    let newSuperRightBullet = PlayerBullet.getBullet(player.x + player.width/2 + 0, player.y, 0, -bulletSpeed,  'super', 1);
     let newMidRightBullet = PlayerBullet.getBullet(player.x + player.width/2 + 14, player.y, bulletSpeed/4, -bulletSpeed,  'normal', 1);
     let newRightBullet = PlayerBullet.getBullet(player.x + player.width/2 + 30, player.y + 20, bulletSpeed/3, -bulletSpeed,  'strength', 1);
     bulletArr.push(newLeftBullet, newMidLeftBullet, newSuperLeftBullet, newSuperRightBullet, newMidRightBullet, newRightBullet);
