@@ -1,16 +1,16 @@
 {
-  "name": "fighter",
+  "name": "emoji-fight",
   "version": "1.0.0",
-  "description": "game",
-  "main": "index.js",
+  "description": "消灭SNH48表情包",
+  "author": "weeeek <407351071@qq.com>",
   "scripts": {
     "service": "http-server -p 8002",
     "build": "webpack",
     "dev": "node webpack.dev.service"
   },
-  "author": "paysontsung",
   "license": "ISC",
   "devDependencies": {
+    "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-loader": "^7.1.4",
     "babel-preset-es2015": "^6.24.0",
