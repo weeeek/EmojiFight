@@ -4,7 +4,7 @@ import * as $ from './Utils';
 import {FSM} from './FSM';
 
 /*** 版本 ***/
-let version = 'v2.0.1';
+let version = 'v3.0.1';
 
 /*** 语言转换 ***/
 let lanChangeStrategy = {

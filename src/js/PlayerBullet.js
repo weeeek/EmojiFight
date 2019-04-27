@@ -11,6 +11,7 @@ export default class PlayerBullet extends Bullet{
     this.damage = damage;
   }
 
+  //玩家子弹命中boss
   static _judgeBumpBoss(bullet, bulletArr, i, boss, player, ctrler){
     let {bulletWidth, bulletHeight, bossWidth, bossHeight} = config;
     if(boss && boss.state !== 'Appear' && !boss.dieFlag &&
@@ -21,11 +22,13 @@ export default class PlayerBullet extends Bullet{
     ){
       let delBullet = bulletArr.splice(i, 1)[0];
       PlayerBullet.recoverBullet(delBullet);
+      //得分系数7
       player.score += (delBullet.damage * 7);
       boss.attacked(delBullet.damage, ctrler);
     }
   }
 
+  //玩家子弹渲染
   static render(ctrler, draw, soundPlay){
     let {bulletWidth, bulletHeight, dieInterval, killScore} = config;
     let {bulletArr, enemyArr, dieArr, boss, player} = ctrler;

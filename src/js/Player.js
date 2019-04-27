@@ -15,7 +15,8 @@ export default class Player extends Plane {
     this.score = 0; //分数
     this.isFullFirepower = false; //火力全开状态
     this.weaponLevel = 0; //武器等级
-    this.isInvincible = false; //无敌状态
+    this.shieldStatus = 0; //盾牌状态  0没有，1快消失，2有
+    this.shieldTimer = null;   //盾牌状态计时器
     this.dieFlag = false; //死亡flag
     this.dieLen = config.dieImgNum.player; //死亡图片数
   }
@@ -24,8 +25,24 @@ export default class Player extends Plane {
     let {canvas} = ui;
     let {frame} = ui.controller;
     let {canvasHeight, canvasWidth} = config;
+    //没死
     if(!this.dieFlag){
+      //画飞机
       ui.drawImg(`player${this.playerIndex}.png`, this.x, this.y);
+      //根据盾状态，画盾      
+      switch(this.shieldStatus){
+        case 2:
+          ui.drawImg(`prop_shield.png`, this.x - 12, this.y);
+          break;
+        case 1:
+          let r = Math.random();
+          if(r < 0.5){
+            ui.drawImg(`prop_shield.png`, this.x - 12, this.y);
+          }
+          break;
+        case 0:
+          break;
+      } 
       if(frame.counter % 5 === 0){
         this.playerIndex = Number(!this.playerIndex);
       }
@@ -49,13 +66,31 @@ export default class Player extends Plane {
     }
   };
 
+  //被工具
   attacked(soundPlay){
-    this.dieFlag = true;
-    this.countDown = this.dieLen * config.dieInterval;
-    soundPlay('player_bomb.mp3');
+    switch(this.shieldStatus){
+      case 2:
+        //如果有盾，击中，盾变虚弱状态
+        this.shieldStatus = 1;
+        clearTimeout(this.shieldTimer)
+        this.shieldTimer = setTimeout(() => {
+          this.shieldStatus = 0;
+        }, config.shieldWeakTime);
+        break;
+      case 1:
+        break;
+      case 0:
+      default:
+        //没有防护罩，被击中，凉凉
+        this.dieFlag = true;
+        this.countDown = this.dieLen * config.dieInterval;
+        soundPlay('player_bomb.mp3');
+        break;
+    }
   }
 
-  bindTouchEvent(dom){ //绑定移动事件
+  //绑定移动事件
+  bindTouchEvent(dom){
     let planeBoundaryMinX = 0;
     let planeBoundaryMaxX = config.canvasWidth -  config.playerWidth;
     let planeBoundaryMinY = 0;
@@ -91,6 +126,7 @@ export default class Player extends Plane {
     });
   }
 
+  //使用炸弹
   bindBombEvent(dom, srcBuffer, enemyArr, dieArr, ctrler){ //绑定爆炸事件
     dom.addEventListener('touchend', (e) => {
       if(this.bomb){

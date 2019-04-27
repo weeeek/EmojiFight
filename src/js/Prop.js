@@ -8,7 +8,7 @@ export default class Prop{
     this.y = -propHeight;
     this.type = type;
   }
-
+  //接道具
   _judgeBumpPlayer(player, ctrler, soundPlay){
     let {propWidth, propHeight} = config;
     if(
@@ -22,7 +22,7 @@ export default class Prop{
       ctrler.prop = null;
     }
   }
-
+  //渲染道具下落
   render(ctrler, draw, soundPlay){
     let {propSpeed, propWidth, propHeight, canvasHeight} = config;
     let {player} = ctrler;

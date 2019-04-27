@@ -39,10 +39,37 @@ let playerBulletStrategy = {
   'Lv.5': function(player, bulletSpeed, bulletArr){
     let newLeftBullet = PlayerBullet.getBullet(player.x + player.width/2 - 38, player.y + 20, -bulletSpeed/3, -bulletSpeed,  'strength', 1);
     let newMidLeftBullet = PlayerBullet.getBullet(player.x + player.width/2 - 20, player.y, -bulletSpeed/4, -bulletSpeed,  'normal', 1);    
-    let newSuperLeftBullet = PlayerBullet.getBullet(player.x + player.width/2 - 6, player.y, 0, -bulletSpeed,  'super', 1);
-    let newSuperRightBullet = PlayerBullet.getBullet(player.x + player.width/2 + 0, player.y, 0, -bulletSpeed,  'super', 1);
+    let newSuperLeftBullet = PlayerBullet.getBullet(player.x + player.width/2 - 8, player.y, 0, -bulletSpeed,  'super', 1);
+    let newSuperRightBullet = PlayerBullet.getBullet(player.x + player.width/2 + 2, player.y, 0, -bulletSpeed,  'super', 1);
     let newMidRightBullet = PlayerBullet.getBullet(player.x + player.width/2 + 14, player.y, bulletSpeed/4, -bulletSpeed,  'normal', 1);
     let newRightBullet = PlayerBullet.getBullet(player.x + player.width/2 + 30, player.y + 20, bulletSpeed/3, -bulletSpeed,  'strength', 1);
+    bulletArr.push(newLeftBullet, newMidLeftBullet, newSuperLeftBullet, newSuperRightBullet, newMidRightBullet, newRightBullet);
+  },
+  'Lv.6': function(player, bulletSpeed, bulletArr){
+    let newLeftBullet = PlayerBullet.getBullet(player.x + player.width/2 - 38, player.y + 20, -bulletSpeed/3, -bulletSpeed,  'strength', 1);
+    let newMidLeftBullet = PlayerBullet.getBullet(player.x + player.width/2 - 20, player.y, -bulletSpeed/4, -bulletSpeed,  'strength', 1);    
+    let newSuperLeftBullet = PlayerBullet.getBullet(player.x + player.width/2 - 8, player.y, 0, -bulletSpeed,  'super', 1);
+    let newSuperRightBullet = PlayerBullet.getBullet(player.x + player.width/2 + 2, player.y, 0, -bulletSpeed,  'super', 1);
+    let newMidRightBullet = PlayerBullet.getBullet(player.x + player.width/2 + 14, player.y, bulletSpeed/4, -bulletSpeed,  'strength', 1);
+    let newRightBullet = PlayerBullet.getBullet(player.x + player.width/2 + 30, player.y + 20, bulletSpeed/3, -bulletSpeed,  'strength', 1);
+    bulletArr.push(newLeftBullet, newMidLeftBullet, newSuperLeftBullet, newSuperRightBullet, newMidRightBullet, newRightBullet);
+  },
+  'Lv.7': function(player, bulletSpeed, bulletArr){
+    let newLeftBullet = PlayerBullet.getBullet(player.x + player.width/2 - 38, player.y + 20, -bulletSpeed/3, -bulletSpeed,  'super', 1);
+    let newMidLeftBullet = PlayerBullet.getBullet(player.x + player.width/2 - 20, player.y, -bulletSpeed/4, -bulletSpeed,  'strength', 1);    
+    let newSuperLeftBullet = PlayerBullet.getBullet(player.x + player.width/2 - 8, player.y, 0, -bulletSpeed,  'super', 1);
+    let newSuperRightBullet = PlayerBullet.getBullet(player.x + player.width/2 + 2, player.y, 0, -bulletSpeed,  'super', 1);
+    let newMidRightBullet = PlayerBullet.getBullet(player.x + player.width/2 + 14, player.y, bulletSpeed/4, -bulletSpeed,  'strength', 1);
+    let newRightBullet = PlayerBullet.getBullet(player.x + player.width/2 + 30, player.y + 20, bulletSpeed/3, -bulletSpeed,  'super', 1);
+    bulletArr.push(newLeftBullet, newMidLeftBullet, newSuperLeftBullet, newSuperRightBullet, newMidRightBullet, newRightBullet);
+  },
+  'Lv.8': function(player, bulletSpeed, bulletArr){
+    let newLeftBullet = PlayerBullet.getBullet(player.x + player.width/2 - 38, player.y + 20, -bulletSpeed/3, -bulletSpeed,  'super', 1);
+    let newMidLeftBullet = PlayerBullet.getBullet(player.x + player.width/2 - 20, player.y, -bulletSpeed/4, -bulletSpeed,  'super', 1);    
+    let newSuperLeftBullet = PlayerBullet.getBullet(player.x + player.width/2 - 8, player.y, 0, -bulletSpeed,  'super', 1);
+    let newSuperRightBullet = PlayerBullet.getBullet(player.x + player.width/2 + 2, player.y, 0, -bulletSpeed,  'super', 1);
+    let newMidRightBullet = PlayerBullet.getBullet(player.x + player.width/2 + 14, player.y, bulletSpeed/4, -bulletSpeed,  'super', 1);
+    let newRightBullet = PlayerBullet.getBullet(player.x + player.width/2 + 30, player.y + 20, bulletSpeed/3, -bulletSpeed,  'super', 1);
     bulletArr.push(newLeftBullet, newMidLeftBullet, newSuperLeftBullet, newSuperRightBullet, newMidRightBullet, newRightBullet);
   }
 };
@@ -50,6 +77,18 @@ let playerBulletStrategy = {
 /******** 道具策略对象 ********/
 //可扩展：僚机、副武器、防护罩
 let propStrategy = {
+  'shield': function(player){
+    player.shieldStatus = 2
+    //清除旧盾牌时间计时器
+    clearTimeout(player.shieldTimer)
+    //更新计时器，15秒的满能量盾，3秒的没能里昂的盾
+    player.shieldTimer = setTimeout(function(){        
+      player.shieldStatus = 1;
+      player.shieldTimer = setTimeout(function(){
+        player.shieldStatus = 0;          
+      }, config.shieldWeakTime);
+    }, config.shieldTime);
+  },
   'bomb': function(player){
     let bombNum = player.bomb;
     if(bombNum < config.bombMax){
@@ -66,12 +105,12 @@ let propStrategy = {
       if(!player.isFullFirepower){
         player.isFullFirepower = true;
       }else{
-        clearTimeout(player.firepowerTimer);
+        //clearTimeout(player.firepowerTimer);
       }
-      player.firepowerTimer = setTimeout(function(){
-        player.isFullFirepower = false;
-        player.weaponLevel = 0;
-      }, config.firepowerTime);
+      // player.firepowerTimer = setTimeout(function(){
+      //   player.isFullFirepower = false;
+      //   player.weaponLevel = 0;
+      // }, config.firepowerTime);
     }
   })()
 };
