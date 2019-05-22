@@ -2,7 +2,25 @@ import {config} from './Config';
 import {randomNum} from './Utils';
 import Enemy from './Enemy';
 import PlayerBullet from './PlayerBullet';
+import WingBullet from './WingBullet';
 import BossBullet from './BossBullet';
+import Wing from './Wing'
+
+/******** 玩家僚机弹幕策略对象 ********/
+let wingBulletStrategy = {
+  'Lv.0': function(wing, player, bulletSpeed, bulletArr){
+    let newBullet = WingBullet.getBullet(player.x + wing.x + wing.width/2 - 3, player.y + wing.y, 0, -bulletSpeed, 'normal', 1);
+    bulletArr.push(newBullet);
+  },
+  'Lv.1': function(wing, player, bulletSpeed, bulletArr){
+    let newBullet = WingBullet.getBullet(player.x + wing.x + wing.width/2 - 3, player.y + wing.y, 0, -bulletSpeed, 'strength', 1);
+    bulletArr.push(newBullet);
+  },
+  'Lv.2': function(wing, player, bulletSpeed, bulletArr){
+    let newBullet = WingBullet.getBullet(player.x + wing.x + wing.width/2 - 3, player.y + wing.y, 0, -bulletSpeed, 'super', 1);
+    bulletArr.push(newBullet);
+  }
+};
 
 /******** 玩家弹幕策略对象 ********/
 let playerBulletStrategy = {
@@ -95,18 +113,30 @@ let propStrategy = {
       player.bomb = bombNum + 1;      
     }
   },
+  'wing': function(player){
+    if(player.wings.length < 2){      
+      player.wings.push(new Wing(player.wings.length==0))
+    }
+    else{
+      player.wings.forEach(wing => {
+        debugger
+        if(wing.weaponLevel < Object.keys(wingBulletStrategy).length - 1)
+          ++wing.weaponLevel;
+      });
+    }      
+  },
   'weapon': (function(){
     let upperLimit = Object.keys(playerBulletStrategy).length;
     return function(player){
       let {weaponLevel} = player;
-      if(weaponLevel < Object.keys(playerBulletStrategy).length - 1){
+      if(weaponLevel < upperLimit - 1){
         player.weaponLevel = weaponLevel + 1;
       }
-      if(!player.isFullFirepower){
-        player.isFullFirepower = true;
-      }else{
-        //clearTimeout(player.firepowerTimer);
-      }
+      // if(!player.isFullFirepower){
+      //   player.isFullFirepower = true;
+      // }else{
+      //   clearTimeout(player.firepowerTimer);
+      // }
       // player.firepowerTimer = setTimeout(function(){
       //   player.isFullFirepower = false;
       //   player.weaponLevel = 0;
@@ -257,6 +287,7 @@ let bossBulletStrategy = {
 }
 
 export {
+  wingBulletStrategy,
   playerBulletStrategy,
   propStrategy,
   AIStrategy,

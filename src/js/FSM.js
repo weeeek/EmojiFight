@@ -4,6 +4,7 @@ import {lanStrategy} from './Language';
 import Controller from './Controller';
 import BossBullet from './BossBullet';
 import PlayerBullet from './PlayerBullet';
+import WingBullet from './WingBullet';
 import Enemy from './Enemy';
 
 /******** 状态改变工厂 ********/
@@ -110,7 +111,7 @@ let gameRun = function(){
     prop,
     boss,
     frame,
-    bulletArr
+    bulletArr,
   } = ctrler;
 
   let soundPlay = gSrc.soundPlay.bind(gSrc);
@@ -122,7 +123,11 @@ let gameRun = function(){
   background.scroll(drawBack); //滚动背景
 
   player.sendBullet(frame, bulletArr, soundPlay); //玩家发射子弹
+  player.wings.forEach(wing => {
+    wing.sendBullet(frame, bulletArr, player);
+  });
   PlayerBullet.render(ctrler, draw, soundPlay); //渲染玩家子弹
+  WingBullet.render(ctrler, draw, soundPlay);
 
   if(!boss){
     ctrler.sendEnemy(soundPlay); //派发敌机

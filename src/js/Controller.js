@@ -105,16 +105,16 @@ export default class Controller {
 
   randomProp(){ //随机道具
     let index = Math.random();
-    if(index < 0.2){
-      return 'bomb';
+    // if(index < 0.2){
+    //   return 'bomb';
+    // }
+    // if(index < 0.4){
+    //   return 'shield';
+    // }
+    if(index < 0.6){
+      return 'wing';
     }
-    if(index < 0.8){
-      return 'weapon';
-    }
-    return 'shield';
-    //盾牌
-    //副武器
-    //僚机
+    return 'weapon';
   }
 
   sendEnemy(soundPlay){

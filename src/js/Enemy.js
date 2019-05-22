@@ -19,6 +19,17 @@ export default class Enemy extends Plane{
     ){
       player.attacked(soundPlay);
     }
+    player.wings.forEach(wing => {
+      if(
+        enemy.x + 0.8*enemyWidth > player.x + wing.x + 0.1*wing.width &&
+        enemy.x + 0.2*enemyWidth < player.x + wing.x + 0.9*wing.width &&
+        enemy.y + 0.8*enemyHeight > player.y + wing.y + 0.1*wing.height &&
+        enemy.y + 0.2*enemyHeight < player.y + wing.y + 0.9*wing.height &&
+        !wing.dieFlag
+      ){
+        wing.attacked(soundPlay);
+      }
+    });
   }
 
   static render(ctrler, draw, soundPlay){

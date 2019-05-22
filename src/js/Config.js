@@ -7,6 +7,8 @@ export let config = {
   canvasHeight: 853,
   playerWidth: 98,
   playerHeight: 122,
+  wingWidth: 49,
+  wingrHeight: 61,
   bulletWidth: 9,
   bulletHeight: 21,
   bulletSpeed: 14,

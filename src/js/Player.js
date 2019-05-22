@@ -2,6 +2,7 @@ import {config} from './Config';
 import {playerBulletStrategy} from './Strategy';
 import BossBullet from './BossBullet';
 import Plane from './Plane';
+import Wing from './Wing'
 import UI from './UI';
 export default class Player extends Plane {
   constructor(){
@@ -19,6 +20,7 @@ export default class Player extends Plane {
     this.shieldTimer = null;   //盾牌状态计时器
     this.dieFlag = false; //死亡flag
     this.dieLen = config.dieImgNum.player; //死亡图片数
+    this.wings = [new Wing(true), new Wing(false)]  //僚机
   }
 
   render(ui){
@@ -32,17 +34,31 @@ export default class Player extends Plane {
       //根据盾状态，画盾      
       switch(this.shieldStatus){
         case 2:
-          ui.drawImg(`prop_shield.png`, this.x - 12, this.y);
+          ui.drawImg(`shield.png`, this.x - 12, this.y);
           break;
         case 1:
           let r = Math.random();
           if(r < 0.5){
-            ui.drawImg(`prop_shield.png`, this.x - 12, this.y);
+            ui.drawImg(`shield.png`, this.x - 12, this.y);
           }
           break;
         case 0:
           break;
-      } 
+      }
+      //画僚机，相对玩家飞机
+      if(this.wings.length > 0){
+        let player = this;
+        this.wings.forEach(wing => {
+          wing.render(ui, player)
+        });
+      }
+      // if(this.wings.length > 0){
+      //   if(this.wings[0] && this.wings[0].dieFlag == false)
+      //     ui.drawImg(`wing${this.playerIndex}.png`, this.x - 51, this.y + 61);
+          
+      //   if(this.wings[1] && this.wings[1].dieFlag == false)
+      //     ui.drawImg(`wing${this.playerIndex}.png`, this.x + 100, this.y + 61);
+      // }
       if(frame.counter % 5 === 0){
         this.playerIndex = Number(!this.playerIndex);
       }
@@ -66,7 +82,7 @@ export default class Player extends Plane {
     }
   };
 
-  //被工具
+  //被攻击
   attacked(soundPlay){
     switch(this.shieldStatus){
       case 2:
