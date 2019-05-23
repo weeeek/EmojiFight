@@ -109,6 +109,7 @@ export default class UI {
 
   bindCtrlEvent(){ //绑定暂停控制事件
     this.ctrlBtn.addEventListener('touchend', () => {
+      console.log("暂停")
       this.globalSrcBuffer.soundPlay('button.mp3');
       FSM[this.curState].clickCtrlBtn.call(this);
     })

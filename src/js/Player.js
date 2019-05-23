@@ -20,7 +20,8 @@ export default class Player extends Plane {
     this.shieldTimer = null;   //盾牌状态计时器
     this.dieFlag = false; //死亡flag
     this.dieLen = config.dieImgNum.player; //死亡图片数
-    this.wings = [new Wing(true), new Wing(false)]  //僚机
+    //this.wings = [new Wing(true), new Wing(false)]  //僚机
+    this.wings = []
   }
 
   render(ui){
@@ -34,12 +35,12 @@ export default class Player extends Plane {
       //根据盾状态，画盾      
       switch(this.shieldStatus){
         case 2:
-          ui.drawImg(`shield.png`, this.x - 12, this.y);
+          ui.drawImg(`prop_shield.png`, this.x - 12, this.y);
           break;
         case 1:
           let r = Math.random();
           if(r < 0.5){
-            ui.drawImg(`shield.png`, this.x - 12, this.y);
+            ui.drawImg(`prop_shield.png`, this.x - 12, this.y);
           }
           break;
         case 0:
