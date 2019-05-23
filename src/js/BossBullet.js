@@ -22,6 +22,17 @@ export default class BossBullet extends Bullet{
     ){
       player.attacked(soundPlay);
     }
+    player.wings.forEach(wing => {      
+      if(
+        bullet.x + bossBulletWidth > player.x + wing.x + 0.2*wing.width &&
+        bullet.x < player.x + wing.x + 0.8*wing.width &&
+        bullet.y + bossBulletHeight > player.y + wing.y + 0.2*wing.height &&
+        bullet.y < player.y + wing.y + 0.8*wing.height &&
+        !wing.dieFlag
+      ){
+        wing.attacked(soundPlay);
+      }
+    });
   }
 
   static render(player, boss, bulletArr, draw, soundPlay){

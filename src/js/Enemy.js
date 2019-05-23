@@ -19,7 +19,7 @@ export default class Enemy extends Plane{
     ){
       player.attacked(soundPlay);
     }
-    player.wings.forEach(wing => {
+    player.wings.forEach(wing => {      
       if(
         enemy.x + 0.8*enemyWidth > player.x + wing.x + 0.1*wing.width &&
         enemy.x + 0.2*enemyWidth < player.x + wing.x + 0.9*wing.width &&

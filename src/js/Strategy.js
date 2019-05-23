@@ -119,7 +119,6 @@ let propStrategy = {
     }
     else{
       player.wings.forEach(wing => {
-        debugger
         if(wing.weaponLevel < Object.keys(wingBulletStrategy).length - 1)
           ++wing.weaponLevel;
       });

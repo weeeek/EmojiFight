@@ -52,10 +52,10 @@ export default class Boss extends Plane{
     let boos = this
     player.wings.forEach(wing => {
       if(
-        enemy.x + 0.9*boos.width > player.x + wing.x &&
-        enemy.x + 0.1*boos.width < player.x + wing.x + wing.width &&
-        enemy.y + 0.9*boos.height > player.y + wing.y &&
-        enemy.y + 0.1*boos.height < player.y + wing.y + wing.height &&
+        x + 0.9*boos.width > player.x + wing.x &&
+        x + 0.1*boos.width < player.x + wing.x + wing.width &&
+        y + 0.9*boos.height > player.y + wing.y &&
+        y + 0.1*boos.height < player.y + wing.y + wing.height &&
         !wing.dieFlag
       ){
         wing.attacked(soundPlay);
