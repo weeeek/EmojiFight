@@ -4,6 +4,8 @@ the Fighter Game
 
 By Payen S.Tsung And Upgrade By Weeeek
 
+> [在线游玩](https://weeeek.github.io/EmojiFight/dist/index.html)
+
 ## 应用
 
  - 面向对象
