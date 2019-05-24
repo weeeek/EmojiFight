@@ -16,7 +16,15 @@ export default class Enemy extends Plane{
       enemy.y + 0.8*enemyHeight > player.y + 0.1*player.height &&
       enemy.y + 0.2*enemyHeight < player.y + 0.9*player.height &&
       !player.dieFlag
-    ){
+    ){      
+      console.log(`被${enemyWidth}打了`)
+      console.log(`x:${enemy.x},y:${enemy.y},width:${enemyWidth},height:${enemyHeight}`)
+      console.log(`x:${player.x},y:${player.y},width:${player.width},height:${player.height}`)
+
+      console.log(enemy.x + 0.8 * enemyWidth > player.x + 0.1 * player.width)
+      console.log(enemy.x + 0.2 * enemyWidth < player.x + 0.9 * player.width)
+      console.log(enemy.y + 0.8 * enemyHeight > player.y + 0.1 * player.height)
+      console.log(enemy.y + 0.2 * enemyHeight < player.y + 0.9 * player.height)
       player.attacked(soundPlay);
     }
     player.wings.forEach(wing => {      
@@ -41,6 +49,7 @@ export default class Enemy extends Plane{
       let enemyHeight = config[`${type}Height`];
       let enemyWidth = config[`${type}Width`];
       if(enemy.y > canvasHeight + enemyHeight || enemy.x < -300 || enemy.x > canvasWidth + 300){
+        
         let del = enemyArr.splice(i, 1)[0];
         Enemy.recoverEnemy(del);
         continue;

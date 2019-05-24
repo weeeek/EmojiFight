@@ -37,6 +37,7 @@ let hideRule = changeUIState('hide', 'rule');
 
 /******** 游戏控制相关函数 ********/
 let pauseGame = (function(){ //暂停游戏
+  console.log("pause")
   this.controller.isPaused = true;
   if(!this.ctrl){
     this.ctrl = this.createUI('ctrl', lanStrategy[this.language].ctrlContent);

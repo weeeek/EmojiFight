@@ -33,6 +33,9 @@ export default class Controller {
     let {player} = ui.controller;
     ui.curState = 'GAME_OVER_UI';
     ui.drawImg('game_over.png', 0, 0);
+
+    console.log("game over");
+
     ui.bombBtn.style.display = 'none';
     ui.ctrlBtn.style.display = 'none';
     ui.globalSrcBuffer.soundPlay('achievement.mp3');
@@ -72,6 +75,7 @@ export default class Controller {
   }
 
   init(){
+    console.log("init")
     this.listen('gameover', this._drawGameOver);
     this.listen('gameover', this._recordScore);
     this.listen('gameover', this._bindTouchOver);

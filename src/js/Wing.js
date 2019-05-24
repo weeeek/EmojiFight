@@ -6,8 +6,8 @@ export default class Wing extends Plane {
     super();
     this.width = config.wingWidth;
     this.height = config.wingHeight;
-    this.x = left?-51:100;
-    this.y = 43;
+    this.x = left?(-5 - config.wingWidth):(config.playerWidth + 5);
+    this.y = 30;
     this.playerIndex = 0; //图片显示index
     this.weaponLevel = 0; //武器等级
     this.dieFlag = false; //死亡flag

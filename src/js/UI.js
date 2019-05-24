@@ -4,7 +4,7 @@ import * as $ from './Utils';
 import {FSM} from './FSM';
 
 /*** 版本 ***/
-let version = 'v3.0.1';
+let version = 'v3.2.1';
 
 /*** 语言转换 ***/
 let lanChangeStrategy = {
@@ -102,6 +102,8 @@ export default class UI {
   _bindBtnEvent(){ //绑定按钮事件
     for(let i = 0, btn; btn = ['startBtn','rankBtn','setBtn','ruleBtn'][i++];){
       this[btn].addEventListener('touchend', () => {
+        console.log($.firstUpper(btn))
+        console.log(this.curState)
         FSM[this.curState][`click${$.firstUpper(btn)}`].call(this);
       })
     }

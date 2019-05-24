@@ -35,12 +35,12 @@ export default class Player extends Plane {
       //根据盾状态，画盾      
       switch(this.shieldStatus){
         case 2:
-          ui.drawImg(`prop_shield.png`, this.x - 12, this.y);
+          ui.drawImg(`shield.png`, this.x - (config.shieldWidth - this.width) /2, this.y - (config.shieldHeight - this.height) / 2);
           break;
         case 1:
           let r = Math.random();
           if(r < 0.5){
-            ui.drawImg(`prop_shield.png`, this.x - 12, this.y);
+            ui.drawImg(`shield.png`, this.x - (config.shieldWidth - this.width) /2, this.y - (config.shieldHeight - this.height) / 2);
           }
           break;
         case 0:
